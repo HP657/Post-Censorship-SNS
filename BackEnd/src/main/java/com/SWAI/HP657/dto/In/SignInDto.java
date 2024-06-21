@@ -1,12 +1,11 @@
-package com.SWAI.HP657.dto;
+package com.SWAI.HP657.dto.In;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
-public class SignUpDto {
-    private String username;
+@Getter
+public class SignInDto {
     private String email;
     private String password;
 }
