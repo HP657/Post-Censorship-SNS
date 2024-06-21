@@ -17,15 +17,13 @@ public class Users {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(unique = true)
+    private String profileImgUrl;
+
     @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    public Users(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 }
