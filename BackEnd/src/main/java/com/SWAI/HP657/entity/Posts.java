@@ -23,4 +23,7 @@ public class Posts {
 
     @Column(nullable = false, unique = true)
     private String postText;
+
+    @Column()
+    private boolean share;
 }
