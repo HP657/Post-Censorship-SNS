@@ -32,13 +32,15 @@ public class ImageService {
                 .getService();
     }
 
-    public String uploadImage(MultipartFile file) throws IOException {
-        String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+    public String uploadImage(MultipartFile file, String imgs) throws IOException {
+        String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
+        String filePath = imgs + "/" + fileName;
 
-        BlobId blobId = BlobId.of(bucketName, fileName);
+        BlobId blobId = BlobId.of(bucketName, filePath);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
         storage.create(blobInfo, file.getBytes());
 
-        return String.format("https://storage.googleapis.com/%s/%s", bucketName, fileName);
+        return String.format("https://storage.googleapis.com/%s/%s/%s", bucketName, imgs, fileName);
     }
+
 }

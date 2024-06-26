@@ -35,7 +35,7 @@ public class AuthService {
 
         MultipartFile profileImg = signUpDto.getProfileImg();
         if (profileImg != null && !profileImg.isEmpty()) {
-            String profileImgUrl = imageService.uploadImage(profileImg);
+            String profileImgUrl = imageService.uploadImage(profileImg, "profile");
             user.setProfileImgUrl(profileImgUrl);
         }
         userRepository.save(user);
