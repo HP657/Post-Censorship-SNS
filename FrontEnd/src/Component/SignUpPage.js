@@ -6,6 +6,7 @@ const SignUpPage = () => {
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [password_confirm, SetPassword_confirm] = useState('');
     const [profileImg, setProfileImg] = useState(null);
     const [previewImg, setPreviewImg] = useState("imgs/person.png"); 
 
@@ -13,6 +14,10 @@ const SignUpPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (password !== password_confirm) {
+            return console.log("비밀번호 다름");
+        }
 
         const formData = new FormData();
         formData.append('username', username);
@@ -55,6 +60,7 @@ const SignUpPage = () => {
                 <input type="text" placeholder="사용자명" value={username} onChange={(e) => setUsername(e.target.value)} required />
                 <input type="email" placeholder="이메일" value={email} onChange={(e) => setEmail(e.target.value)} required />
                 <input type="password" placeholder="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                <input type="password" placeholder="비밀번호 확인" value={password_confirm} onChange={(e) => SetPassword_confirm(e.target.value)} required />
                 <button type="submit">회원가입</button>
             </form>
         </div>

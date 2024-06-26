@@ -1,14 +1,16 @@
 * {
   box-sizing: border-box;
-  width: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%; /* Ensuring the footer takes full width */
 }
 
 body,
 html,
 #root {
+  height: 100%;
   margin: 0;
   padding: 0;
-  height: 100%;
   font-family: Arial, sans-serif;
 }
 
@@ -16,6 +18,7 @@ html,
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  width: 100%; /* Ensuring the container takes full width */
 }
 
 .header {
@@ -23,7 +26,7 @@ html,
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 10px 0px 10px 15px;
+  padding: 10px 15px; /* Changed margin to padding */
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
 }
@@ -40,10 +43,11 @@ html,
   align-items: center;
   text-align: center;
   background-color: #e9ecef;
+  width: 100%; /* Ensuring the content takes full width */
 }
 
 .footer {
-  height: 10%;
+  height: 15%;
   display: flex;
   justify-content: space-around;
   text-align: center;
@@ -60,6 +64,7 @@ html,
   cursor: pointer;
   width: 33.33%;
   text-align: center;
+  margin-bottom: 4px;
 }
 
 .button {
@@ -74,4 +79,5 @@ html,
   width: 24px;
   height: 24px;
   margin-bottom: 4px;
+  margin-top: 10px;
 }
