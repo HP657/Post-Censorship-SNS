@@ -78,6 +78,7 @@ const SignUpPage = () => {
                     ref={fileInputRef} 
                     onChange={handleFileInputChange} 
                     style={{ display: 'none' }} 
+                    accept=".jpeg, .jpg, .png" 
                     required={!profileImg} 
                 />
                 </div>
