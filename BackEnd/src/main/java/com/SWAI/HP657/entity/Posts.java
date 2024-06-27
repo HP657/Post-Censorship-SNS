@@ -15,7 +15,7 @@ public class Posts {
     private Long postId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)  // user_id 컬럼으로 외래 키 설정
     private Users user;
 
     @Column(unique = true)

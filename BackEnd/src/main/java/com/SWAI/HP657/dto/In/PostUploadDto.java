@@ -1,2 +1,16 @@
-package com.SWAI.HP657.dto.In;public class PostUploadDto {
+package com.SWAI.HP657.dto.In;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+public class PostUploadDto {
+    private MultipartFile postImg;
+    private String content;
 }
