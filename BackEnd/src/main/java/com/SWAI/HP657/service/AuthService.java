@@ -47,8 +47,7 @@ public class AuthService {
         if (userByEmail == null) {
             return new Response<>("존재하지 않는 사용자임", HttpStatus.NOT_FOUND);
         }
-        String submittedPassword = signinDto.getPassword();
-        if (passwordEncoder.matches(submittedPassword, userByEmail.getPassword())) {
+        if (passwordEncoder.matches(signinDto.getPassword(), userByEmail.getPassword())) {
             request.getSession().setAttribute("userId", userByEmail.getUserId());
             return new Response<>("로그인 성공적", HttpStatus.OK);
         } else {
