@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "./../Css/Main.css";
+import MakePostButton from "./MakePostButton";
 
 axios.defaults.withCredentials = true; // 모든 Axios 요청에 쿠키 포함
 
@@ -28,6 +29,7 @@ const Main = () => {
     <div className="container">
       <header className="header">
         <div className="logo">Logo</div>
+        <MakePostButton />
       </header>
       <main className="content">
         <div>Content Area</div>
