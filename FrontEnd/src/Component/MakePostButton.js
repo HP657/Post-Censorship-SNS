@@ -1,9 +1,16 @@
+import React from "react";
 import "../Css/Button.css";
+
 const MakePostButton = () => {
-  const a = () => {
-    console.log(1);
+  const handleClick = () => {
+    console.log("포스트 작성하기 버튼 클릭됨");
   };
-  return <button onClick={a} />;
+
+  return (
+    <div className="postbutton-container">
+      <button className="postbutton" onClick={handleClick}>포스트 작성하기</button>
+    </div>
+  );
 };
 
 export default MakePostButton;
