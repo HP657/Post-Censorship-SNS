@@ -4,24 +4,26 @@
   padding: 0;
 }
 
-html,
-body,
-#root {
+html, body, .full {
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: #f0f0f0; 
 }
 
 .auth-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center; 
   background-color: white;
   border: 1px solid #dee2e6;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 400px; 
 }
 
 .auth-form {
@@ -56,15 +58,31 @@ body,
   padding: 10px;
   border: 1px solid #dee2e6;
   border-radius: 5px;
+  width: calc(100% - 20px); 
 }
 
 .auth-form button {
   padding: 10px;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
   cursor: pointer;
+  width: 100%; 
+  margin-bottom: 10px; 
+}
+
+.auth-form button.signup-button {
+  background-color: #007bff; 
+  color: white;
+}
+
+.auth-form button.login-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.auth-form button.home-button {
+  background-color: #ffc107;
+  color: black;
 }
 
 .auth-form button:disabled {
@@ -76,4 +94,5 @@ body,
   color: red;
   margin-bottom: 10px;
   text-align: center;
+  width: 100%; 
 }

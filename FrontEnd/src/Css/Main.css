@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 100%; /* Ensuring the footer takes full width */
+  width: 100%; 
 }
 
 body,
@@ -18,15 +18,15 @@ html,
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 100%; /* Ensuring the container takes full width */
+  width: 100%; 
 }
 
 .header {
   height: 10%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between; 
   align-items: center;
-  padding: 10px 15px; /* Changed margin to padding */
+  padding: 10px 15px; 
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
 }
@@ -43,7 +43,7 @@ html,
   align-items: center;
   text-align: center;
   background-color: #e9ecef;
-  width: 100%; /* Ensuring the content takes full width */
+  width: 100%; 
 }
 
 .footer {
@@ -67,7 +67,7 @@ html,
   margin-bottom: 4px;
 }
 
-.button {
+.footer-button {
   font-size: 1rem;
   font-weight: bold;
   background-color: transparent;
@@ -80,4 +80,33 @@ html,
   height: 24px;
   margin-bottom: 4px;
   margin-top: 10px;
+}
+
+.loginarea {
+  float: right;
+  width: auto;
+}
+
+.signup-button, .signin-button, .logout-button {
+  margin: 0 5px;
+  padding: 5px 10px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+}
+
+.signup-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.signin-button {
+  background-color: #28a745;
+  color: white;
+}
+
+.logout-button {
+  background-color: #dc3545;
+  color: white;
 }
