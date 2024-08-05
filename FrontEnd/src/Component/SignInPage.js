@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import "../Css/Form.css"; // Import your Form.css here
+import "../Css/Form.css";
 import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
