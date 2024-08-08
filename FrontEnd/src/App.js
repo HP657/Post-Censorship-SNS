@@ -3,6 +3,7 @@ import Post from "./Component/Post";
 import SignUpPage from "./Component/SignUpPage";
 import SignInPage from "./Component/SignInPage";
 import Main from "./Component/Main";
+import MakePost from "./Component/MakePost";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route path="/main" element={<Post />} />
           <Route path="/signup" element={<SignUpPage />} />
           <Route path="/signin" element={<SignInPage />} />
+          <Route path="/mapo" element={<MakePost />} />
           <Route path="/" element={<Main />} />
         </Routes>
       </BrowserRouter>
