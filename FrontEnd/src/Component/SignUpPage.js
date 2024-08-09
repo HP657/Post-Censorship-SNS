@@ -8,14 +8,13 @@ const SignUpPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [password_confirm, setPasswordConfirm] = useState('');
-    const [previewImg, setPreviewImg] = useState('imgs/person.png'); // Default profile image
+    const [previewImg, setPreviewImg] = useState('imgs/person.png'); 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
 
     const fileInputRef = useRef(null);
     const navigate = useNavigate();
 
-    // useEffect to set default preview image on component mount
     useEffect(() => {
         setPreviewImg('imgs/person.png');
     }, []);
