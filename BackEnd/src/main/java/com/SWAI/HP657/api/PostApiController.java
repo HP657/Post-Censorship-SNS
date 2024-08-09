@@ -2,6 +2,7 @@ package com.SWAI.HP657.api;
 
 import com.SWAI.HP657.dto.In.PostUploadDto;
 import com.SWAI.HP657.dto.Response;
+import com.SWAI.HP657.entity.Posts;
 import com.SWAI.HP657.service.PostService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/post")
@@ -22,9 +24,25 @@ public class PostApiController {
     public ResponseEntity<Response<String>> postAdd(
             @RequestParam("postImg") MultipartFile postImg,
             @RequestParam("content") String content,
+            @RequestParam("username") String username,
             HttpServletRequest request) throws IOException {
 
-        PostUploadDto postUploadDto = new PostUploadDto(postImg, content);
+        PostUploadDto postUploadDto = new PostUploadDto(postImg, content, username);
         return postService.postAdd(postUploadDto, request).toResponseEntity();
+    }
+
+    @GetMapping("/a/view")
+    public ResponseEntity<Response<List<Posts>>> viewAPost() {
+        return postService.viewAPost().toResponseEntity();
+    }
+
+    @GetMapping("/t/view")
+    public ResponseEntity<Response<List<Posts>>> viewTPost() {
+        return postService.viewTPost().toResponseEntity();
+    }
+
+    @GetMapping("/f/view")
+    public ResponseEntity<Response<List<Posts>>> viewFPost() {
+        return postService.viewFPost().toResponseEntity();
     }
 }

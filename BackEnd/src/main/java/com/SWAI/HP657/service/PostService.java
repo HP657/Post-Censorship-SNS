@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class PostService {
@@ -41,6 +42,7 @@ public class PostService {
         post.setUser(user);
         post.setPostText(postUploadDto.getContent());
         post.setShare(false);
+        post.setUsername(postUploadDto.getUsername());
 
         MultipartFile postImg = postUploadDto.getPostImg();
         if (postImg != null && !postImg.isEmpty()) {
@@ -63,5 +65,14 @@ public class PostService {
             postRepository.save(post);
             return new Response<>("게시물 업로드 성공적 (이미지 없음)", HttpStatus.OK);
         }
+    }
+    public Response<List<Posts>> viewAPost() {
+        return new Response<>(postRepository.findAllByOrderByPostIdDesc(), HttpStatus.OK);
+    }
+    public Response<List<Posts>> viewTPost() {
+        return new Response<>(postRepository.findByShareTrueOrderByPostIdDesc(), HttpStatus.OK);
+    }
+    public Response<List<Posts>> viewFPost() {
+        return new Response<>(postRepository.findByShareFalseOrderByPostIdDesc(), HttpStatus.OK);
     }
 }
