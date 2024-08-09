@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  width: 100%; 
+  width: 100%;
 }
 
 body,
@@ -18,7 +18,7 @@ html,
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 100%; 
+  width: 100%;
 }
 
 .header {
@@ -26,9 +26,14 @@ html,
   display: flex;
   justify-content: space-between; 
   align-items: center;
-  padding: 10px 15px; 
+  padding: 10px 15px;
   background-color: #f8f9fa;
   border-bottom: 1px solid #dee2e6;
+  position: fixed; 
+  top: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 1000; 
 }
 
 .logo {
@@ -36,24 +41,44 @@ html,
   font-weight: bold;
 }
 
+.loginarea {
+  display: flex;
+  align-items: center; 
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; 
+  gap: 10px; 
+}
+
 .content {
-  flex: 1;
+  flex: 1; 
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start; 
   text-align: center;
   background-color: #e9ecef;
-  width: 100%; 
+  overflow-y: auto; 
+  padding-bottom: 40px; 
+  margin-bottom: 40px; 
+  padding-top: 50px; 
+  margin-top: 50px; 
 }
 
 .footer {
-  height: 15%;
+  height: 8%; 
   display: flex;
   justify-content: space-around;
   text-align: center;
   align-items: center;
   background-color: #f8f9fa;
   border-top: 1px solid #dee2e6;
+  position: fixed; 
+  bottom: 0; 
+  left: 0; 
+  right: 0; 
+  z-index: 1000; 
 }
 
 .footerItem {
@@ -82,13 +107,7 @@ html,
   margin-top: 10px;
 }
 
-.loginarea {
-  float: right;
-  width: auto;
-}
-
 .signup-button, .signin-button, .logout-button {
-  margin: 0 5px;
   padding: 5px 10px;
   font-size: 1rem;
   cursor: pointer;
