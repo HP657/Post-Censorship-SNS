@@ -16,7 +16,7 @@ def preprocess_image(img):
     if img.mode == 'RGBA':
         img = img.convert('RGB')
     
-    img = img.resize((190, 190))
+    img = img.resize((105, 105))
     img_array = np.array(img)
     img_array = np.expand_dims(img_array, axis=0)
     img_array = img_array / 255.0
