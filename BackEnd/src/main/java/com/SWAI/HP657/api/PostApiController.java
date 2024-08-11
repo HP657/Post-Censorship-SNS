@@ -31,6 +31,11 @@ public class PostApiController {
         return postService.postAdd(postUploadDto, request).toResponseEntity();
     }
 
+    @GetMapping("/view/{postId}")
+    public ResponseEntity<Response<Posts>> idPost(@PathVariable("postId") Long postId) {
+        return postService.idPost(postId).toResponseEntity();
+    }
+
     @GetMapping("/a/view")
     public ResponseEntity<Response<List<Posts>>> viewAPost() {
         return postService.viewAPost().toResponseEntity();
