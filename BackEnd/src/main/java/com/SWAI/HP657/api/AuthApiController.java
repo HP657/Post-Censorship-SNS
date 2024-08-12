@@ -1,5 +1,6 @@
 package com.SWAI.HP657.api;
 
+import com.SWAI.HP657.dto.Out.UserFindUserIdDto;
 import com.SWAI.HP657.dto.Response;
 import com.SWAI.HP657.dto.In.SignInDto;
 import com.SWAI.HP657.dto.In.SignUpDto;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -39,5 +41,10 @@ public class AuthApiController {
     @GetMapping("/info")
     public ResponseEntity<? extends Response<?>> getUserInfo(HttpServletRequest request) {
         return authService.findUserByUserId(request).toResponseEntity();
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<Response<List<UserFindUserIdDto>>> getAllUsers() {
+        return authService.findAllUsers().toResponseEntity();
     }
 }

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -71,5 +73,10 @@ public class AuthService {
         } else {
             return new Response<>("사용자를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
         }
+    }
+
+    public Response<List<UserFindUserIdDto>> findAllUsers() {
+        List<UserFindUserIdDto> findUsers = userRepository.findAllProjectedBy();
+        return new Response<>(findUsers, HttpStatus.OK);
     }
 }
