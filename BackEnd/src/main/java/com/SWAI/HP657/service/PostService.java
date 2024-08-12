@@ -81,8 +81,14 @@ public class PostService {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {
             return new Response<>(post.get(), HttpStatus.OK);
-        } else {
-            return new Response<>(null, HttpStatus.NOT_FOUND);
         }
+        return new Response<>(null, HttpStatus.NOT_FOUND);
+
+    }
+
+    public Response<List<Posts>> myPost(Long userId) {
+        List<Posts> post = postRepository.findByUser_UserId(userId);
+
+        return new Response<>(post, HttpStatus.OK);
     }
 }

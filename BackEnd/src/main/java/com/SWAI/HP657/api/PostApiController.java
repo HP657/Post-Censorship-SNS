@@ -36,6 +36,11 @@ public class PostApiController {
         return postService.idPost(postId).toResponseEntity();
     }
 
+    @GetMapping("/mypost/{userId}")
+    public ResponseEntity<Response<List<Posts>>> myPost(@PathVariable("userId") Long userId) {
+        return postService.myPost(userId).toResponseEntity();
+    }
+
     @GetMapping("/a/view")
     public ResponseEntity<Response<List<Posts>>> viewAPost() {
         return postService.viewAPost().toResponseEntity();
