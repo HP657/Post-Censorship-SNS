@@ -31,6 +31,7 @@ const SignInPage = () => {
       );
       console.log("로그인 성공:", response.data);
       navigate("/");
+      window.location.reload();
     } catch (error) {
       console.error("로그인 실패:", error);
       setError("로그인에 실패했습니다. 다시 시도해주세요.");
