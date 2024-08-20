@@ -31,4 +31,7 @@ public class Posts {
 
     @Column()
     private String username;
+
+    @Column(nullable = false)
+    private boolean reviewRequested;
 }

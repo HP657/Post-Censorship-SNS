@@ -45,6 +45,7 @@ public class PostService {
         post.setPostText(postUploadDto.getContent());
         post.setShare(false);
         post.setUsername(postUploadDto.getUsername());
+        post.setReviewRequested(false);
 
         MultipartFile postImg = postUploadDto.getPostImg();
         if (postImg != null && !postImg.isEmpty()) {
@@ -68,6 +69,12 @@ public class PostService {
             return new Response<>("게시물 업로드 성공적 (이미지 없음)", HttpStatus.OK);
         }
     }
+
+    public Response<List<Posts>> myPost(HttpServletRequest request) {
+        Long userId = (Long) request.getSession().getAttribute("userId");
+        List<Posts> posts = postRepository.findByUser_UserIdOrderByPostIdDesc(userId);
+        return new Response<>(posts, HttpStatus.OK);
+    }
     public Response<List<Posts>> viewAPost() {
         return new Response<>(postRepository.findAllByOrderByPostIdDesc(), HttpStatus.OK);
     }
@@ -84,11 +91,5 @@ public class PostService {
         }
         return new Response<>(null, HttpStatus.NOT_FOUND);
 
-    }
-
-    public Response<List<Posts>> myPost(Long userId) {
-        List<Posts> post = postRepository.findByUser_UserId(userId);
-
-        return new Response<>(post, HttpStatus.OK);
     }
 }
