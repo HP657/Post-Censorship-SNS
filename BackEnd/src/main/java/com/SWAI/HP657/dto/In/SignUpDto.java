@@ -3,8 +3,7 @@ package com.SWAI.HP657.dto.In;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class SignUpDto {
