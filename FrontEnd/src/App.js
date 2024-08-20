@@ -5,6 +5,9 @@ import Main from "./Component/Main";
 import MakePost from "./Component/MakePost";
 import DetailPost from "./Component/DetailPost";
 import ViewContent from "./Component/ViewContent";
+import Admin from "./Component/Admin"
+import Profile from "./Component/Profile";
+
 
 function App() {
   return (
@@ -17,6 +20,8 @@ function App() {
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/signin" element={<SignInPage />} />
             <Route path="view/post/:postId" element={<DetailPost />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/mypage" element={<Profile />} />
           </Route>
         </Routes>
       </BrowserRouter>
