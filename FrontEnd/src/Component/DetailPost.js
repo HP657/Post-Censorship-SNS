@@ -52,10 +52,9 @@ const DetailPost = () => {
 
   const handleCommentSubmit = async () => {
     if (!newComment.trim()) {
-      return; // 빈 댓글 제출 방지
+      return;
     }
     try {
-      // 댓글 추가 요청
       await axios.post(`http://localhost:8080/api/comments/add/comment`, {
         postId: postId,
         commentText: newComment,
@@ -88,7 +87,6 @@ const DetailPost = () => {
         {post.share ? "공유된 포스트입니다." : "비공유 포스트입니다."}
       </p>
 
-      {/* 댓글 입력 부분 */}
       <div className="comment-section">
         <input
           type="text"
@@ -99,7 +97,6 @@ const DetailPost = () => {
         <button onClick={handleCommentSubmit}>댓글 달기</button>
       </div>
 
-      {/* 댓글 리스트 */}
       <div className="comments-list">
         {comments.length === 0 ? (
           <p>댓글이 없습니다.</p>
