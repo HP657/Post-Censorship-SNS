@@ -55,4 +55,17 @@ public class PostApiController {
     public ResponseEntity<Response<List<Posts>>> viewFPost() {
         return postService.viewFPost().toResponseEntity();
     }
+    @GetMapping("/r/view")
+    public ResponseEntity<Response<List<Posts>>> viewRPost() {
+        return postService.viewRPost().toResponseEntity();
+    }
+
+    @PostMapping("/{postId}/request/review")
+    public ResponseEntity<Response<String>> requestReview(@PathVariable("postId") Long postId) {
+        return postService.requestReview(postId).toResponseEntity();
+    }
+    @PostMapping("{postId}/request/review/ok")
+    public ResponseEntity<Response<String>> reviewOk(@PathVariable("postId") Long postId) {
+        return postService.requestReviewOk(postId).toResponseEntity();
+    }
 }

@@ -10,6 +10,7 @@ public interface PostRepository extends JpaRepository<Posts, Long> {
     List<Posts> findByShareTrueOrderByPostIdDesc();
     List<Posts> findByShareFalseOrderByPostIdDesc();
     List<Posts> findAllByOrderByPostIdDesc();
+    List<Posts> findByReviewRequestedTrueOrderByPostIdDesc();
     Optional<Posts> findByPostId(Long postId);
     List<Posts> findByUser_UserIdOrderByPostIdDesc(Long userId);
 }

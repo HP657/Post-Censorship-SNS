@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.swing.text.html.Option;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -84,10 +83,34 @@ public class PostService {
     public Response<List<Posts>> viewFPost() {
         return new Response<>(postRepository.findByShareFalseOrderByPostIdDesc(), HttpStatus.OK);
     }
+    public Response<List<Posts>> viewRPost() {
+        return new Response<>(postRepository.findByReviewRequestedTrueOrderByPostIdDesc(), HttpStatus.OK);
+    }
     public Response<Posts> idPost(Long postId) {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {
             return new Response<>(post.get(), HttpStatus.OK);
+        }
+        return new Response<>(null, HttpStatus.NOT_FOUND);
+    }
+    public Response<String> requestReview(Long postId) {
+        Optional<Posts> post = postRepository.findByPostId(postId);
+        if (post.isPresent()) {
+            Posts fixPost = post.get();
+            fixPost.setReviewRequested(true);
+            postRepository.save(fixPost);
+            return new Response<>("재검토 요청 완료", HttpStatus.OK);
+        }
+        return new Response<>(null, HttpStatus.NOT_FOUND);
+    }
+    public Response<String> requestReviewOk(Long postId) {
+        Optional<Posts> post = postRepository.findByPostId(postId);
+        if (post.isPresent()) {
+            Posts fixPost = post.get();
+            fixPost.setReviewRequested(false);
+            fixPost.setShare(true);
+            postRepository.save(fixPost);
+            return new Response<>("재검토 요청 승인", HttpStatus.OK);
         }
         return new Response<>(null, HttpStatus.NOT_FOUND);
 
