@@ -41,6 +41,20 @@ const Profile = () => {
     }
   };
 
+  const deletePost = async (postId) => {
+    try {
+      await axios.delete(`http://localhost:8080/api/post/delete/${postId}`);
+      alert("게시물이 삭제되었습니다.");
+
+      // 삭제 후, 해당 게시물을 posts 상태에서 제거
+      setPosts((prevPosts) =>
+        prevPosts.filter((post) => post.postId !== postId)
+      );
+    } catch (error) {
+      alert("게시물 삭제에 실패했습니다.");
+    }
+  };
+
   return (
     <div className="Profile">
       <h1>My Profile</h1>
@@ -52,7 +66,7 @@ const Profile = () => {
       ) : (
         <div style={styles.container}>
           {posts.length === 0 ? (
-            <p style={styles.noPosts}>No posts available.</p>
+            <p style={styles.noPosts}>게시물이 없습니다.</p>
           ) : (
             posts.map((post) => (
               <div key={post.postId} style={styles.card}>
@@ -79,6 +93,12 @@ const Profile = () => {
                       재검토 요청
                     </button>
                   )}
+                  <button
+                    style={{ ...styles.button, backgroundColor: "red" }}
+                    onClick={() => deletePost(post.postId)}
+                  >
+                    삭제하기
+                  </button>
                 </div>
               </div>
             ))
