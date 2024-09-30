@@ -69,6 +69,23 @@ public class PostService {
         }
     }
 
+    public Response<String> postDelete(Long postId) {
+        Optional<Posts> post = postRepository.findByPostId(postId);
+        if (post.isPresent()) {
+            String imageUrl = post.get().getPostImgUrl();
+
+            boolean isImageDeleted = imageService.deleteImage(imageUrl);
+            if (!isImageDeleted) {
+                return new Response<>("게시물 삭제 시 이미지 삭제 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+            }
+
+            postRepository.delete(post.get());
+            return new Response<>("게시물 삭제됨", HttpStatus.OK);
+        } else {
+            return new Response<>("게시물을 찾을 수 없음", HttpStatus.NOT_FOUND);
+        }
+    }
+
     public Response<List<Posts>> myPost(HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         List<Posts> posts = postRepository.findByUser_UserIdOrderByPostIdDesc(userId);

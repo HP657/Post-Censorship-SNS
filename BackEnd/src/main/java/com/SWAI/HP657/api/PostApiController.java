@@ -30,6 +30,10 @@ public class PostApiController {
         PostUploadDto postUploadDto = new PostUploadDto(postImg, content, username);
         return postService.postAdd(postUploadDto, request).toResponseEntity();
     }
+    @DeleteMapping("/delete/{postId}")
+    public ResponseEntity<Response<String>> postDelete(@PathVariable("postId") Long postId) {
+        return postService.postDelete(postId).toResponseEntity();
+    }
 
     @GetMapping("/view/{postId}")
     public ResponseEntity<Response<Posts>> idPost(@PathVariable("postId") Long postId) {

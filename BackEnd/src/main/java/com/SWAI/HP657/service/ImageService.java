@@ -43,4 +43,21 @@ public class ImageService {
         return String.format("https://storage.googleapis.com/%s/%s/%s", bucketName, imgs, fileName);
     }
 
+    public boolean deleteImage(String imageUrl) {
+        String objectName = imageUrl.replace("https://storage.googleapis.com/" + bucketName + "/", "");
+
+
+        boolean deleted = storage.delete(bucketName, objectName);
+
+        if (deleted) {
+            System.out.println("Object " + objectName + " was permanently deleted from " + bucketName);
+        } else {
+            System.out.println("The object " + objectName + " wasn't found in " + bucketName);
+        }
+
+        return deleted;
+    }
+
+
+
 }
