@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import API from "./API/API";
 
 const Profile = () => {
   const [posts, setPosts] = useState([]);
@@ -9,11 +9,8 @@ const Profile = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await axios.get(
-          "http://localhost:8080/api/post/my/post"
-        );
-        setPosts(response.data.data);
-        console.log(posts);
+        const response = await API("/post/my/post", "GET");
+        setPosts(response.data);
       } catch (error) {
         setError("Failed to load posts.");
       } finally {
@@ -26,9 +23,7 @@ const Profile = () => {
 
   const requestReview = async (postId) => {
     try {
-      await axios.post(
-        `http://localhost:8080/api/post/${postId}/request/review`
-      );
+      await API(`/post/${postId}/request/review`, "POST");
       alert("재검토 요청");
 
       setPosts((prevPosts) =>
@@ -43,10 +38,9 @@ const Profile = () => {
 
   const deletePost = async (postId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/post/delete/${postId}`);
+      await API(`/post/delete/${postId}`, "DELETE");
       alert("게시물이 삭제되었습니다.");
 
-      // 삭제 후, 해당 게시물을 posts 상태에서 제거
       setPosts((prevPosts) =>
         prevPosts.filter((post) => post.postId !== postId)
       );
@@ -57,7 +51,7 @@ const Profile = () => {
 
   return (
     <div className="Profile">
-      <h1>My Profile</h1>
+      <h1>내 프로필</h1>
 
       {loading ? (
         <div style={styles.loading}>Loading...</div>

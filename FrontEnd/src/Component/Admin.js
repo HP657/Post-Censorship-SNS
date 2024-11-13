@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "./API/API";
 
 const fetchInfo = async (endpoint) => {
   try {
-    const response = await axios.get(
-      `http://localhost:8080/api/post${endpoint}`
-    );
+    const response = await API(`/post${endpoint}`, "GET");
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -16,8 +14,8 @@ const fetchInfo = async (endpoint) => {
 
 const adminCheck = async () => {
   try {
-    const responseInfo = await axios.get("http://localhost:8080/api/auth/info");
-    return responseInfo.data.data;
+    const response = await API("/auth/info", "GET");
+    return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -26,9 +24,7 @@ const adminCheck = async () => {
 
 const sharePost = async (postId) => {
   try {
-    await axios.post(
-      `http://localhost:8080/api/post/${postId}/request/review/ok`
-    );
+    await API(`/post/${postId}/request/review/ok`, "POST");
     alert("게시글이 공유 요청되었습니다!");
     window.location.reload();
   } catch (error) {
@@ -75,26 +71,21 @@ const PostSection = ({ title, endpoint, showShareButton }) => {
       try {
         setLoading(true);
         const admin = await adminCheck();
-        if (
-          !(
-            admin.email === "God@Admin" &&
-            admin.username === "God" &&
-            admin.userId === 0
-          )
-        ) {
+        if (!(admin.email === "God@Admin" && admin.username === "God")) {
           navigate("/");
         }
         const result = await fetchInfo(endpoint);
-        setData(result.data);
+        setData(result || []);
       } catch (error) {
         setError(error);
+        setData([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [endpoint]);
+  }, [endpoint, navigate]);
 
   const handlePostClick = (postId) => {
     navigate(`/view/post/${postId}`);
@@ -110,14 +101,18 @@ const PostSection = ({ title, endpoint, showShareButton }) => {
       ) : (
         <div>
           <div ref={containerRef} style={styles.scrollContainer}>
-            {data.map((post) => (
-              <PostCard
-                key={post.postId}
-                post={post}
-                onClick={handlePostClick}
-                showShareButton={showShareButton}
-              />
-            ))}
+            {data.length > 0 ? (
+              data.map((post) => (
+                <PostCard
+                  key={post.postId}
+                  post={post}
+                  onClick={handlePostClick}
+                  showShareButton={showShareButton}
+                />
+              ))
+            ) : (
+              <div>No posts available</div>
+            )}
           </div>
         </div>
       )}
@@ -135,7 +130,7 @@ const Admin = () => {
       <PostSection
         title="재검토 요청된 게시글"
         endpoint="/r/view"
-        showShareButton={true} // 재검토 요청된 게시글에만 공유하기 버튼 표시
+        showShareButton={true}
       />
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import "../Css/Form.css";
 import { useNavigate } from "react-router-dom";
+import API from "./API/API";
 
 const SignInPage = () => {
   const [email, setEmail] = useState("");
@@ -19,16 +19,7 @@ const SignInPage = () => {
     const data = { email, password };
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/auth/signin`,
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+      const response = await API("/auth/signin", "POST", data);
       console.log("로그인 성공:", response.data);
       navigate("/");
       window.location.reload();

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import "../Css/Content.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "./API/API";
 
 const ViewContent = () => {
   const [posts, setPosts] = useState([]);
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/post/t/view");
-      setPosts(response.data.data);
+      const response = await API("/post/t/view", "GET");
+      setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts: ", error);
     }
@@ -21,7 +21,7 @@ const ViewContent = () => {
   return (
     <div className="content-area">
       {posts.length === 0 ? (
-        <p>포스트가 없습니다.</p>
+        <p>게시물가 없습니다.</p>
       ) : (
         <div className="posts-container">
           {posts.map((post) => (

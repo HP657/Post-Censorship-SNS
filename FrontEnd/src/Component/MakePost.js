@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../Css/MakePost.css";
 import { useNavigate } from "react-router-dom";
+import API from "./API/API";
 
 const PostUploadForm = () => {
   const [postImg, setPostImg] = useState(null);
   const [content, setContent] = useState("");
   const [message, setMessage] = useState("");
   const [userInfo, setUserInfo] = useState(null);
-  const [loading, setLoading] = useState(true);  
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -23,13 +23,13 @@ const PostUploadForm = () => {
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/auth/info");
+        const response = await API("/auth/info", "GET");
         setUserInfo(response.data);
         setLoading(false);
       } catch (err) {
         console.error("Error fetching user info:", err);
-        alert('로그인 하고 오셈');
-        navigate('/signin');
+        alert("로그인 하고 오셈");
+        navigate("/signin");
       }
     };
 
@@ -42,21 +42,12 @@ const PostUploadForm = () => {
     const formData = new FormData();
     formData.append("postImg", postImg);
     formData.append("content", content);
-    console.log(userInfo.data.username)
-    formData.append("username", userInfo.data.username); 
+    formData.append("username", userInfo.username);
 
     try {
-      const response = await axios.post(
-        "http://localhost:8080/api/post/add",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await API("/post/add", "POST", formData);
       setMessage(response.data.message);
-      navigate('/');
+      navigate("/");
     } catch (error) {
       console.error("Error uploading post:", error);
       setMessage("게시물 업로드 실패");
@@ -66,17 +57,13 @@ const PostUploadForm = () => {
   const imagePreviewUrl = postImg ? URL.createObjectURL(postImg) : null;
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   return (
     <div className="MKP-container">
       <h2 className="MKP-title">게시물 올리기</h2>
-      {userInfo ? (
-        <p>Welcome, {userInfo.data.username}!</p> 
-      ) : (
-        <p>Not logged in</p> 
-      )}
+      {userInfo ? <p>Welcome, {userInfo.username}!</p> : <p>Not logged in</p>}
       <form onSubmit={handleSubmit}>
         <div>
           <label className="MKP-label" htmlFor="postImg">

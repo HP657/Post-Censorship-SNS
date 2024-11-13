@@ -9,12 +9,14 @@ import Admin from "./Component/Admin";
 import Profile from "./Component/Profile";
 
 function App() {
+  const posts = [];
+
   return (
     <div>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />}>
-            <Route index element={<ViewContent />} />
+            <Route index element={<ViewContent posts={posts} />} />
             <Route path="/mapo" element={<MakePost />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/signin" element={<SignInPage />} />

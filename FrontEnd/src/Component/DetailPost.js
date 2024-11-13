@@ -1,45 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "../Css/DetailPost.css";
-import axios from "axios";
+import API from "./API/API";
 
 const DetailPost = () => {
   const { postId } = useParams();
   const [post, setPost] = useState(null);
   const [comments, setComments] = useState([]);
-  const [newComment, setNewComment] = useState([]);
+  const [newComment, setNewComment] = useState("");
 
   useEffect(() => {
-    // 포스트 및 댓글 데이터 가져오기
     const fetchPostAndComments = async () => {
       try {
-        const postResponse = await fetch(
-          `http://localhost:8080/api/post/view/${postId}`
-        );
-        const postResult = await postResponse.json();
+        const postResult = await API(`/post/view/${postId}`, "GET");
 
-        if (postResponse.ok && postResult.data) {
+        if (postResult.data) {
           setPost(postResult.data);
         } else {
-          console.error("포스트 정보를 가져오는 데 실패했습니다.");
+          console.error("Failed to fetch post data.");
         }
       } catch (error) {
-        console.error("포스트를 가져오는 중 오류 발생:", error);
+        console.error("Error fetching post data:", error);
       }
 
       try {
-        const commentsResponse = await fetch(
-          `http://localhost:8080/api/comments/post/${postId}`
-        );
-        const commentsResult = await commentsResponse.json();
+        const commentsResult = await API(`/comments/post/${postId}`, "GET");
 
-        if (commentsResponse.ok && commentsResult.data) {
+        if (commentsResult.data) {
           setComments(commentsResult.data);
         } else {
-          console.error("댓글 정보를 가져오는 데 실패했습니다.");
+          console.error("Failed to fetch comments.");
         }
       } catch (error) {
-        console.error("댓글을 가져오는 중 오류 발생:", error);
+        console.error("Error fetching comments:", error);
       }
     };
 
@@ -55,46 +48,45 @@ const DetailPost = () => {
       return;
     }
     try {
-      await axios.post(`http://localhost:8080/api/comments/add/comment`, {
+      const response = await API("/comments/add/comment", "POST", {
         postId: postId,
         commentText: newComment,
       });
-      setNewComment("");
 
-      // 댓글 업데이트
-      const response = await fetch(
-        `http://localhost:8080/api/comments/post/${postId}`
-      );
-      const result = await response.json();
-      setComments(result.data);
+      if (response) {
+        setNewComment("");
+
+        const commentsResult = await API(`/comments/post/${postId}`, "GET");
+        setComments(commentsResult.data);
+      } else {
+        console.error("Failed to submit comment.");
+      }
     } catch (error) {
-      console.error("댓글 제출 중 오류 발생: ", error);
+      console.error("Error submitting comment:", error);
     }
   };
 
   if (!post) {
-    return <p>로딩 중...</p>;
+    return <p>Loading...</p>;
   }
 
   return (
     <div className="detail-post">
-      <p className="post-author">
-        닉네임: {post.username || "알 수 없는 사용자"}
-      </p>
+      <p className="post-author">닉네임: {post.username || "Unknown User"}</p>
       <img src={post.postImgUrl} alt={post.postText} className="detail-image" />
       <h3 className="post-title">{post.postText}</h3>
       <p className="post-share-status">
-        {post.share ? "공유된 포스트입니다." : "비공유 포스트입니다."}
+        {post.share ? "공유됨" : "공유되지 않음"}
       </p>
 
       <div className="comment-section">
         <input
           type="text"
-          placeholder="댓글을 입력하세요"
+          placeholder="댓글을 입력해주세요"
           value={newComment}
           onChange={handleCommentChange}
         />
-        <button onClick={handleCommentSubmit}>댓글 달기</button>
+        <button onClick={handleCommentSubmit}>입력</button>
       </div>
 
       <div className="comments-list">
@@ -104,7 +96,7 @@ const DetailPost = () => {
           comments.map((comment) => (
             <div key={comment.commentId} className="comment-item">
               <p>
-                <strong>{comment.username || "알 수 없는 사용자"}</strong>:{" "}
+                <strong>{comment.username || "Unknown User"}</strong>:{" "}
                 {comment.commentText}
               </p>
             </div>

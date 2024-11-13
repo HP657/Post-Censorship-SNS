@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import "../Css/Main.css";
 import MakePostButton from "./MakePostButton";
 import { Outlet, useNavigate } from "react-router-dom";
-
-axios.defaults.withCredentials = true;
+import API from "./API/API";
 
 const Main = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -26,8 +24,8 @@ const Main = () => {
 
   const fetchUserInfo = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/auth/info");
-      const fetchedUserInfo = response.data.data;
+      const response = await API("/auth/info", "GET");
+      const fetchedUserInfo = response.data;
       setUserInfo(fetchedUserInfo);
       if (fetchedUserInfo && fetchedUserInfo.profileImgUrl) {
         setUserProfileImg(fetchedUserInfo.profileImgUrl);
@@ -39,7 +37,7 @@ const Main = () => {
 
   const logout = async () => {
     try {
-      await axios.post("http://localhost:8080/api/auth/logout");
+      await API("/auth/logout", "POST");
       setUserInfo(null);
       navigate("/signin");
     } catch (error) {
@@ -54,9 +52,12 @@ const Main = () => {
   return (
     <div className="container">
       <header className="header">
-        <div className="logo" onClick={() => handleClick("Home")}>
-          Logo
-        </div>
+        <img
+          className="logo"
+          src="/imgs/Logo.png"
+          onClick={() => handleClick("Home")}
+          alt="Logo"
+        />
         <MakePostButton />
         <div className="loginarea">
           {userInfo ? (
