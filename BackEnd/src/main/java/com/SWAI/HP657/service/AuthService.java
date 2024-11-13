@@ -14,10 +14,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
+// 인증 서비스 레이아웃
 @Service
 public class AuthService {
     @Autowired
@@ -29,6 +29,7 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // 회원가입 서비스
     public Response<String> signUp(SignUpDto signUpDto) throws IOException {
         Users user = new Users();
         user.setUsername(signUpDto.getUsername());
@@ -44,6 +45,7 @@ public class AuthService {
         return new Response<>("회원가입 성공적", HttpStatus.OK);
     }
 
+    // 로그인 서비스
     public Response<String> signIn(SignInDto signinDto, HttpServletRequest request) {
         Users userByEmail = userRepository.findUserByEmail(signinDto.getEmail());
         if (userByEmail == null) {
@@ -61,11 +63,13 @@ public class AuthService {
         }
     }
 
+    // 로그아웃 서비스
     public Response<String> logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return new Response<>("로그아웃 성공적", HttpStatus.OK);
     }
 
+    // 로그인중인지 화인하는 서비스
     public Response<?> findUserByUserId(HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         if (userId == null) {
@@ -79,6 +83,7 @@ public class AuthService {
         }
     }
 
+    // 모든 유저 가져오는 서비스
     public Response<List<UserFindUserIdDto>> findAllUsers() {
         List<UserFindUserIdDto> findUsers = userRepository.findAllProjectedBy();
         return new Response<>(findUsers, HttpStatus.OK);

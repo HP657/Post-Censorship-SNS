@@ -9,6 +9,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+// AI 백엔드와 REST 통신을 위한 서비스
 @Service
 public class FlaskService {
 

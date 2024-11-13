@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
+// 게시물 관련 서비스 레이아웃
 @Service
 public class PostService {
 
@@ -32,6 +33,7 @@ public class PostService {
     @Autowired
     private FlaskService flaskService;
 
+    // 게시물 등록 서비스
     @Transactional
     public Response<String> postAdd(PostUploadDto postUploadDto, HttpServletRequest request) throws IOException {
         Long userId = (Long) request.getSession().getAttribute("userId");
@@ -69,6 +71,7 @@ public class PostService {
         }
     }
 
+    // 게시물 삭제 서비스
     public Response<String> postDelete(Long postId) {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {
@@ -86,6 +89,7 @@ public class PostService {
         }
     }
 
+    // 각 상황별 게시물 요청 서비스 (내 게시물, 모든 게시물, 공유된 게시물, 검열된 게시물, 재검토 요청온 게시물, )
     public Response<List<Posts>> myPost(HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         List<Posts> posts = postRepository.findByUser_UserIdOrderByPostIdDesc(userId);
@@ -103,6 +107,8 @@ public class PostService {
     public Response<List<Posts>> viewRPost() {
         return new Response<>(postRepository.findByReviewRequestedTrueOrderByPostIdDesc(), HttpStatus.OK);
     }
+
+    // Id로 게시물 찾기 서비스
     public Response<Posts> idPost(Long postId) {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {
@@ -110,6 +116,8 @@ public class PostService {
         }
         return new Response<>(null, HttpStatus.NOT_FOUND);
     }
+
+    // 재검토 요청 서비스
     public Response<String> requestReview(Long postId) {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {
@@ -120,6 +128,8 @@ public class PostService {
         }
         return new Response<>(null, HttpStatus.NOT_FOUND);
     }
+
+    // 재검토 요청 응답 서비스
     public Response<String> requestReviewOk(Long postId) {
         Optional<Posts> post = postRepository.findByPostId(postId);
         if (post.isPresent()) {

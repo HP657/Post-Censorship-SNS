@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+// 이 프로젝트 표준 출력 형식
 @Data
 @NoArgsConstructor
 public class Response<T> {

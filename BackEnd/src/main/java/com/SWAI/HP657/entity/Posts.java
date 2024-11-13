@@ -5,6 +5,7 @@ import lombok.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+// 게시물 엔티티
 @Entity
 @Data
 @Builder

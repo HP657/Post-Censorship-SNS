@@ -1,13 +1,10 @@
 package com.SWAI.HP657.dto.In;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
-@Getter
-@Setter
+// 게시물 등록 DTO
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostUploadDto {

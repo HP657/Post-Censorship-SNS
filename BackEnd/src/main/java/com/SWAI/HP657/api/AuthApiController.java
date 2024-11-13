@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 import java.util.List;
 
+// 인증 API 컨트롤러
 @RestController
 @RequestMapping("/api/auth")
 public class AuthApiController {
@@ -38,11 +39,13 @@ public class AuthApiController {
         return authService.logout(request).toResponseEntity();
     }
 
+    //유저 개인 정보
     @GetMapping("/info")
     public ResponseEntity<? extends Response<?>> getUserInfo(HttpServletRequest request) {
         return authService.findUserByUserId(request).toResponseEntity();
     }
 
+    // 유저 정보들
     @GetMapping("/users")
     public ResponseEntity<Response<List<UserFindUserIdDto>>> getAllUsers() {
         return authService.findAllUsers().toResponseEntity();

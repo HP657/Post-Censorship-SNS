@@ -3,6 +3,7 @@ package com.SWAI.HP657.dto.In;
 import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 
+// 회원가입 DTO
 @Data
 @NoArgsConstructor
 @AllArgsConstructor

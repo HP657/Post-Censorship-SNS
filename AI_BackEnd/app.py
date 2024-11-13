@@ -12,6 +12,7 @@ model = load_model(model_path)
 
 class_labels = ['gambling', 'violence']
 
+# 이미지 가공
 def preprocess_image(img):
     if img.mode == 'RGBA':
         img = img.convert('RGB')
@@ -22,10 +23,12 @@ def preprocess_image(img):
     img_array = img_array / 255.0
     return img_array
 
+# 이미지 모델 검증
 def predict_image(img_array):
     predictions = model.predict(img_array)
     return predictions
 
+# POST 요청 응답
 @app.route('/predict', methods=['POST'])
 def predict():
     if 'image_url' not in request.json:
@@ -48,7 +51,7 @@ def predict():
         confidence = predictions[0][predicted_class_index]
 
         confidence = float(confidence)
-        is_confident = confidence >= 0.9999
+        is_confident = confidence >= 0.999
 
         return jsonify({
             'predicted_class': predicted_class,

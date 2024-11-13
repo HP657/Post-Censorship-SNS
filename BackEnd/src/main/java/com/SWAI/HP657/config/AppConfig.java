@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 
+// 시크릿 프로퍼티 사용
 @Configuration
 @PropertySource("classpath:application.secret.properties")
 public class AppConfig {

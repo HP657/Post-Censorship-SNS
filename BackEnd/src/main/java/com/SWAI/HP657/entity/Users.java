@@ -6,8 +6,7 @@ import lombok.*;
 
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
+// 유저 엔티티
 @Entity
 @Data
 @Builder

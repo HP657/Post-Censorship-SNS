@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.UUID;
 
+// 구글 클라우드 스토리지 사용하는 서비스 레이아웃
 @Service
 public class ImageService {
 
@@ -32,6 +33,7 @@ public class ImageService {
                 .getService();
     }
 
+    // 이미지 업로드 서비스
     public String uploadImage(MultipartFile file, String imgs) throws IOException {
         String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
         String filePath = imgs + "/" + fileName;
@@ -43,9 +45,9 @@ public class ImageService {
         return String.format("https://storage.googleapis.com/%s/%s/%s", bucketName, imgs, fileName);
     }
 
+    // 이미지 삭제 서비스
     public boolean deleteImage(String imageUrl) {
         String objectName = imageUrl.replace("https://storage.googleapis.com/" + bucketName + "/", "");
-
 
         boolean deleted = storage.delete(bucketName, objectName);
 
@@ -57,7 +59,4 @@ public class ImageService {
 
         return deleted;
     }
-
-
-
 }

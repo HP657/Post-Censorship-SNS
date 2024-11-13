@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
+// 게시물 리포지토리
 public interface PostRepository extends JpaRepository<Posts, Long> {
     List<Posts> findByShareTrueOrderByPostIdDesc();
     List<Posts> findByShareFalseOrderByPostIdDesc();

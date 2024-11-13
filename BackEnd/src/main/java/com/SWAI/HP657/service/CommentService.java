@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+// 댓글 서비스 레이아웃
 @Service
 public class CommentService {
 
@@ -27,6 +28,7 @@ public class CommentService {
     @Autowired
     private PostRepository postRepository;
 
+    // 댓글 추가 서비스
     public Response<String> addComment(CommentDto commentDto, HttpServletRequest request) {
         Long userId = (Long) request.getSession().getAttribute("userId");
         Users user = userRepository.findById(userId)
@@ -42,6 +44,7 @@ public class CommentService {
         return new Response<>("댓글 달음", HttpStatus.OK);
     }
 
+    // 등록된 게시물의 댓글 가져오는 서비스
     public Response<List<Comments>> getCommentsByPostId(Long postId) {
         List<Comments> comments = commentRepository.findByPost_PostId(postId);
         return new Response<>(comments, HttpStatus.OK);

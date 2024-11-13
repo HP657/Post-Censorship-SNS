@@ -1,10 +1,9 @@
 package com.SWAI.HP657.dto.In;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
-@Setter
-@Getter
+// 로그인 DTO
+@Data
 public class SignInDto {
     private String email;
     private String password;
